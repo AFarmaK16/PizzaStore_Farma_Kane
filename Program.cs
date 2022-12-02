@@ -3,8 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString =
-builder.Configuration.GetConnectionString("Pizzas") ?? "Data
-Source=Pizzas.db";
+builder.Configuration.GetConnectionString("Pizzas") ?? "DataSource=Pizzas.db";
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -13,7 +12,7 @@ builder.Services.AddSwaggerGen(c =>
          Description = "Making the Pizzas you love",
          Version = "v1" });
 });
-builder.Services.AddDbContext<PizzaDb>(options => options.UseInMemoryDatabase("items"));
+builder.Services.AddSqlite<PizzaDb>(connectionString);
 var app = builder.Build();
 
 
